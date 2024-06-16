@@ -1,4 +1,4 @@
-package com.obras.gerenciador.entities.usuario;
+package com.obras.gerenciador.domain.usuario.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -11,7 +11,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class usuario {
+public class Usuario {
 
     @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;

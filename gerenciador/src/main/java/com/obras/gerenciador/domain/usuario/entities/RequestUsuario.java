@@ -1,4 +1,6 @@
 package com.obras.gerenciador.domain.usuario.entities;
 
-public record RequestUsuario(String nome, String senha) {
+import jakarta.validation.constraints.NotBlank;
+
+public record RequestUsuario(@NotBlank String nome, @NotBlank String senha) {
 }

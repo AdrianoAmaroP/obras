@@ -1,6 +1,6 @@
-package com.obras.gerenciador.domain.usuario.respository;
+package com.obras.gerenciador.domain.login.respository;
 
-import com.obras.gerenciador.domain.usuario.entities.Usuario;
+import com.obras.gerenciador.domain.login.entities.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;

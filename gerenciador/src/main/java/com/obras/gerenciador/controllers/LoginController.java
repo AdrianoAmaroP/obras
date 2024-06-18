@@ -1,14 +1,14 @@
-package com.obras.gerenciador.domain.usuario.controllers;
+package com.obras.gerenciador.controllers;
 
-import com.obras.gerenciador.domain.usuario.entities.RequestCadastroUsuario;
-import com.obras.gerenciador.domain.usuario.entities.RequestUsuario;
-import com.obras.gerenciador.domain.usuario.entities.Usuario;
-import com.obras.gerenciador.domain.usuario.respository.UsuarioRepository;
+import com.obras.gerenciador.domain.login.entities.RequestCadastroUsuario;
+import com.obras.gerenciador.domain.login.entities.RequestUsuario;
+import com.obras.gerenciador.domain.login.entities.ResponseToken;
+import com.obras.gerenciador.domain.login.entities.Usuario;
+import com.obras.gerenciador.domain.login.respository.UsuarioRepository;
+import com.obras.gerenciador.infra.security.TokenService;
 import jakarta.validation.Valid;
-import org.apache.catalina.filters.ExpiresFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/login")
-public class UsuarioController {
+public class LoginController {
 
     @Autowired
     private AuthenticationManager manager;
@@ -28,13 +28,17 @@ public class UsuarioController {
     @Autowired
     private PasswordEncoder encoder;
 
+    @Autowired
+    private TokenService tokenService;
+
     @PostMapping
     public ResponseEntity logar(@RequestBody @Valid RequestUsuario req){
 
         var token = new UsernamePasswordAuthenticationToken(req.nome(), req.senha());
         var authentication = manager.authenticate(token);
+        var dto = new ResponseToken(tokenService.gerarToken((Usuario) authentication.getPrincipal()));
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(dto);
     }
 
     @PostMapping("/cadastrar")

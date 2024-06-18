@@ -1,4 +1,4 @@
-package com.obras.gerenciador.domain.usuario.entities;
+package com.obras.gerenciador.domain.login.entities;
 
 import jakarta.validation.constraints.NotBlank;
 

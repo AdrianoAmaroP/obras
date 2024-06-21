@@ -7,13 +7,18 @@ import com.obras.gerenciador.domain.login.entities.Usuario;
 import com.obras.gerenciador.domain.login.respository.UsuarioRepository;
 import com.obras.gerenciador.infra.security.TokenService;
 import jakarta.validation.Valid;
+import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/login")
@@ -31,6 +36,9 @@ public class LoginController {
     @Autowired
     private TokenService tokenService;
 
+    @Value("${api.security.token.cadastro}")
+    private String secret;
+
     @PostMapping
     public ResponseEntity logar(@RequestBody @Valid RequestUsuario req){
 
@@ -43,8 +51,8 @@ public class LoginController {
 
     @PostMapping("/cadastrar")
     public ResponseEntity cadastrar(@RequestBody @Valid RequestCadastroUsuario req){
-        if(!req.chave().equals("123")){
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("chave incorreta");
+        if(!req.chave().equals(secret)){
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("token cadastro incorreto");
         }
         var user = new Usuario(null, req.nome(), encoder.encode(req.senha()));
         userRepo.save(user);

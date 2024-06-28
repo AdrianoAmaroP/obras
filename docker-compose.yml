@@ -27,6 +27,8 @@ services:
       SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
       JWT_SECRET: ${JWT_SECRET}
       CADASTRO_SECRET: ${CADASTRO_SECRET}
+    volumes:
+      - ~/.m2:/root/.m2
 
 volumes:
   db_data:

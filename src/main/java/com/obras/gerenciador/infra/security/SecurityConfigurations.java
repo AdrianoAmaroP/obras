@@ -28,6 +28,7 @@ public class SecurityConfigurations {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(aut -> aut
                         .requestMatchers(HttpMethod.POST, "/login").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/login/cadastrar").permitAll()
                         .anyRequest().authenticated()
                 ).addFilterBefore(myFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();

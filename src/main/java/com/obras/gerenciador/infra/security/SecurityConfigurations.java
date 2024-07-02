@@ -29,6 +29,7 @@ public class SecurityConfigurations {
                 .authorizeHttpRequests(aut -> aut
                         .requestMatchers(HttpMethod.POST, "/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/login/cadastrar").permitAll()
+                        .requestMatchers("/swagger-ui.html","/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .anyRequest().authenticated()
                 ).addFilterBefore(myFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();

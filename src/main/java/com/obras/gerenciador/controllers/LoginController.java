@@ -13,7 +13,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,13 +42,17 @@ public class LoginController {
     private String secret;
 
     @PostMapping
-    public ResponseEntity logar(@RequestBody @Valid RequestUsuario req){
+    public ResponseEntity<ResponseToken> logar(@RequestBody @Valid RequestUsuario req){
 
-        var token = new UsernamePasswordAuthenticationToken(req.nome(), req.senha());
-        var authentication = manager.authenticate(token);
-        var dto = new ResponseToken(tokenService.gerarToken((Usuario) authentication.getPrincipal()));
+        try {
+            var token = new UsernamePasswordAuthenticationToken(req.nome(), req.senha());
+            var authentication = manager.authenticate(token);
+            var dto = new ResponseToken(tokenService.gerarToken((Usuario) authentication.getPrincipal()));
 
-        return ResponseEntity.ok(dto);
+            return ResponseEntity.ok(dto);
+        } catch (UsernameNotFoundException | BadCredentialsException ex) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
     }
 
     @PostMapping("/cadastrar")

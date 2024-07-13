@@ -2,6 +2,7 @@ package com.obras.gerenciador.controllers;
 
 import com.obras.gerenciador.domain.login.entities.RequestCadastroUsuario;
 import com.obras.gerenciador.domain.login.entities.RequestUsuario;
+import com.obras.gerenciador.domain.login.entities.ResponseToken;
 import com.obras.gerenciador.domain.login.entities.Usuario;
 import com.obras.gerenciador.domain.login.respository.UsuarioRepository;
 import com.obras.gerenciador.domain.login.service.LoginService;
@@ -41,7 +42,7 @@ public class LoginController {
     private String secret;
 
     @PostMapping
-    public ResponseEntity logar(@RequestBody @Valid RequestUsuario req){
+    public ResponseEntity<ResponseToken> logar(@RequestBody @Valid RequestUsuario req){
 
         var dto = loginService.gerarTokenLogin(req);
 

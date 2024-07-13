@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -20,14 +20,16 @@ public class LoginService {
     @Autowired
     private TokenService tokenService;
 
-    public ResponseToken gerarTokenLogin(RequestUsuario req){
+    public ResponseToken gerarTokenLogin(RequestUsuario req) {
         try {
             var token = new UsernamePasswordAuthenticationToken(req.nome(), req.senha());
             var authentication = manager.authenticate(token);
             var dto = new ResponseToken(tokenService.gerarToken((Usuario) authentication.getPrincipal()));
             return dto;
-        } catch (AuthenticationException e) {
+        } catch (BadCredentialsException ex) {
             throw new BadCredentialsException("Usuário inexistente ou senha inválida");
+        } catch (UsernameNotFoundException ex) {
+            throw new UsernameNotFoundException("Usuário inexistente ou senha inválida");
         }
     }
 }

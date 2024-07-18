@@ -24,13 +24,13 @@ public class User implements UserDetails {
     Long id;
 
     @NotBlank
-    String nome;
+    String name;
 
     @NotBlank
     String password;
 
     public User(RequestCadastroUsuario dto) {
-        this.nome = dto.nome();
+        this.name = dto.nome();
         this.password = dto.senha();
     }
 
@@ -41,7 +41,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return nome;
+        return name;
     }
 
     @Override

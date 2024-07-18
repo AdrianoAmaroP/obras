@@ -1,6 +1,6 @@
 package com.obras.gerenciador.infra.security;
 
-import com.obras.gerenciador.domain.login.respository.UsuarioRepository;
+import com.obras.gerenciador.domain.login.repository.UsuarioRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

@@ -1,6 +1,6 @@
 package com.obras.gerenciador.domain.login.service;
 
-import com.obras.gerenciador.domain.login.respository.UsuarioRepository;
+import com.obras.gerenciador.domain.login.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

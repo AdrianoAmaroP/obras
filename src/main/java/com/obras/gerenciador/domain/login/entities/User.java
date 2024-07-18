@@ -10,15 +10,15 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
-@Table(name = "usuario")
-@Entity(name = "usuario")
+@Table(name = "users")
+@Entity(name = "user")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 @ToString
-public class Usuario implements UserDetails {
+public class User implements UserDetails {
 
     @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
@@ -29,7 +29,7 @@ public class Usuario implements UserDetails {
     @NotBlank
     String password;
 
-    public Usuario(RequestCadastroUsuario dto) {
+    public User(RequestCadastroUsuario dto) {
         this.nome = dto.nome();
         this.password = dto.senha();
     }

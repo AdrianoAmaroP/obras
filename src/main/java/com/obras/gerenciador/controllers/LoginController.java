@@ -3,8 +3,8 @@ package com.obras.gerenciador.controllers;
 import com.obras.gerenciador.domain.login.entities.RequestCadastroUsuario;
 import com.obras.gerenciador.domain.login.entities.RequestUsuario;
 import com.obras.gerenciador.domain.login.entities.ResponseToken;
-import com.obras.gerenciador.domain.login.entities.Usuario;
-import com.obras.gerenciador.domain.login.respository.UsuarioRepository;
+import com.obras.gerenciador.domain.login.entities.User;
+import com.obras.gerenciador.domain.login.repository.UsuarioRepository;
 import com.obras.gerenciador.domain.login.service.LoginService;
 import com.obras.gerenciador.infra.security.TokenService;
 import jakarta.validation.Valid;
@@ -54,7 +54,7 @@ public class LoginController {
         if(!req.chave().equals(secret)){
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("token cadastro incorreto");
         }
-        var user = new Usuario(null, req.nome(), encoder.encode(req.senha()));
+        var user = new User(null, req.nome(), encoder.encode(req.senha()));
         userRepo.save(user);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
